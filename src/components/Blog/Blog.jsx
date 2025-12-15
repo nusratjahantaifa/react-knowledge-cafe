@@ -1,11 +1,12 @@
-import PropTypes from 'prop-types'; 
-import { CiBookmark } from 'react-icons/ci';
-const Blog = ({ blog, handleAddToBookmark }) => {
-    const  {title, cover, author, img, postedDate, hashtags, readingTime}  = blog;
+import PropTypes from 'prop-types'
+import { CiBookmark } from 'react-icons/ci'
+
+const Blog = ({ blog, handleAddToBookmark, handleMarkAsRead }) => {
+    const  {id, title, cover, author, img, postedDate, hashtags, readingTime}  = blog;
     return (
-        <div className='mb-20'>
+        <div className='mb-20 space-y-4'>
             <img className='w-full mb-8' src={cover} alt={`cover picture of the title ${title}`} />
-          <div className='flex justify-between mb-4'>
+          <div className='flex justify-between mb-4 '>
             <div className='flex'>
 <img className='w-14 '  src={img} alt="" />
 <div><h3 className="text-2xl">{author}</h3>
@@ -20,19 +21,28 @@ const Blog = ({ blog, handleAddToBookmark }) => {
       </button> 
             </div>
           </div>
-           <h2 className='text-4xl'> {title} </h2> 
-           <p>
-            {
-                hashtags.map(hash => <span><a href="">{hash}</a></span>)
-            }
-           </p>
-        </div>
-    );
-};
+          <div>
+             <h2 className='text-4xl'>{title}</h2>
+          </div>
+  <div>
+      <p>
+        {
+            hashtags.map(hash => <span><a href=""></a>{hash}</span>)
+             }
+    </p>
+
+    <button
+        onClick={() => handleMarkAsRead(id, readingTime)}
+        className='text-blue-900 font-bold-700 underline' 
+    >Mark As Read</button>
+  </div>
+    </div>
+  )
+  };
 
 Blog.propTypes = {
-    blog: PropTypes.object.isRequired,
-    handleAddToBookmark: PropTypes.func
+blog: PropTypes.object.isRequired,
+handleAddToBookmark: PropTypes.func,
+handleMarkAsRead: PropTypes.func
 }
-
 export default Blog;
